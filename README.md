@@ -141,25 +141,75 @@ sei-defi/
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+ or Python 3.9+
-- SEI wallet with initial funding
-- API keys for relevant protocols
-- Monitoring and alerting setup
-
-### Environment Variables
-```bash
-SEI_RPC_URL=https://rpc.sei.io
-PRIVATE_KEYS=<encrypted_wallet_keys>
-STRATEGY_CONFIG=<strategy_parameters>
-RISK_LIMITS=<risk_management_settings>
-```
+- Node.js 18+
+- Git
 
 ### Installation
 ```bash
 git clone https://github.com/brandonbryant12/sei-defi.git
 cd sei-defi
-npm install  # or pip install -r requirements.txt
+npm install
+```
+
+### Environment Configuration
+Copy the example environment file and configure as needed:
+```bash
+cp .env.example .env
+```
+
+### Basic Wallet Operations
+
+#### Create a New SEI Wallet
+Generate a new wallet with mnemonic and private key:
+```bash
+npm run create-wallet
+```
+
+This will output:
+- SEI address (starts with `sei1...`)
+- 24-word mnemonic phrase
+- Private key
+- Security warnings
+
+#### Check Wallet Balance
+Check the balance of any SEI wallet address:
+```bash
+# Using command line argument
+npm run check-balance sei1abc123...
+
+# Or set WALLET_ADDRESS in .env and use:
+npm run check-balance
+```
+
+This will show:
+- Native SEI balance
+- All token balances
+- Current network info (chain ID, block height)
+- Helpful tips for funding and using the wallet
+
+### Environment Variables
+```bash
+# Network Configuration
+SEI_RPC_URL=https://rpc.sei.io
+SEI_LCD_URL=https://rest.sei.io
+SEI_CHAIN_ID=sei
+
+# Optional: Default wallet for balance checking
+WALLET_ADDRESS=sei1...
+```
+
+### Development
+```bash
+# Install dependencies
+npm install
+
+# Run in development mode
+npm run dev
+
+# Build for production
 npm run build
+
+# Start production build
 npm start
 ```
 
