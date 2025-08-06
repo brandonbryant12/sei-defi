@@ -126,10 +126,18 @@ sei-defi/
 ## Security & Risk Management
 
 ### Security Features
-- Hardware wallet integration support
-- Multi-signature wallet compatibility
-- Encrypted private key storage
-- Regular security audits and updates
+- **GitHub Secrets Integration**: Private keys and mnemonics stored securely in GitHub encrypted secrets
+- **Environment Variable Access**: Credentials loaded only when needed via environment variables
+- **Hardware wallet integration support**: For additional security layers
+- **Multi-signature wallet compatibility**: For institutional use cases
+- **Validation utilities**: Built-in credential format validation
+- **Regular security audits and updates**: Ongoing security maintenance
+
+### Stored Credentials
+The following wallet credentials are securely stored in GitHub secrets:
+- `SEI_WALLET_ADDRESS`: Main trading wallet address
+- `SEI_WALLET_PRIVATE_KEY`: Encrypted private key (64-char hex)
+- `SEI_WALLET_MNEMONIC`: BIP39 24-word recovery phrase
 
 ### Risk Controls
 - Position sizing limits

@@ -1,0 +1,43 @@
+name: SEI Wallet Operations
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Operation to perform'
+        required: true
+        default: 'check-balance'
+        type: choice
+        options:
+        - check-balance
+        - get-wallet-info
+
+jobs:
+  wallet-ops:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Check wallet balance
+      if: ${{ github.event.inputs.operation == 'check-balance' }}
+      env:
+        SEI_WALLET_ADDRESS: ${{ secrets.SEI_WALLET_ADDRESS }}
+      run: npm run check-balance ${{ secrets.SEI_WALLET_ADDRESS }}
+      
+    - name: Show wallet info
+      if: ${{ github.event.inputs.operation == 'get-wallet-info' }}
+      env:
+        SEI_WALLET_ADDRESS: ${{ secrets.SEI_WALLET_ADDRESS }}
+      run: |
+        echo "Wallet Address: ${{ secrets.SEI_WALLET_ADDRESS }}"
+        echo "Private key and mnemonic are securely stored in GitHub secrets"
